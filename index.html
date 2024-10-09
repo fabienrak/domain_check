@@ -3,14 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEST YOOOOOOOO !!!!</title>
+    <title>Upload de fichier WHOIS</title>
 </head>
 <body>
-    <h1>Yo !!! </h1>
+    <h1>Upload de fichier WHOIS</h1>
     <form action="/upload" method="post" enctype="multipart/form-data">
-        <label for="file">Upload fichier txt :</label>
+        <label for="file">Sélectionnez un fichier texte contenant la liste des domaines :</label>
         <input type="file" id="file" name="file" accept=".txt">
         <button type="submit">Upload</button>
     </form>
+
+    <div id="results-container" style="display: none;">
+        <h2>Résultats</h2>
+        <pre id="results"></pre>
+        <form id="export-form" action="/export" method="post">
+            <input type="hidden" id="results-data" name="results">
+            <button type="submit">Exporter en Excel</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const resultsContainer = document.getElementById('results-container');
+            const resultsElement = document.getElementById('results');
+            const resultsDataInput = document.getElementById('results-data');
+
+            const handleResults = (results) => {
+                resultsElement.textContent = results.join('\n\n');
+                resultsDataInput.value = JSON.stringify(results);
+                resultsContainer.style.display = 'block';
+            };
+
+            const simulatedResults = [
+                { domaine: 'modomaine.com', emails: 'emailtest1@modomaine.com, email2@modomaine.com', phones: '+1234567890, +0987654321', names: 'Isha Doe', countries: 'MG, FR' },
+            ];
+
+            handleResults(simulatedResults);
+        });
+    </script>
 </body>
 </html>

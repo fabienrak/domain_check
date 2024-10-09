@@ -14,9 +14,11 @@
   "author": "Isha",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^3.1.10",
     "express": "^4.21.1",
     "multer": "^1.4.5-lts.1",
-    "whois": "^2.14.2"
+    "whois": "^2.14.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"

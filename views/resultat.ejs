@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats WHOIS</title>
+    <style>
+        #results-container {
+            margin-top: 20px;
+        }
+        #results {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        #export-button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Résultats</h1>
+    <div id="results-container">
+        <pre id="results"><%= JSON.stringify(results, null, 2) %></pre>
+        <form id="export-form" action="/export" method="post">
+            <input type="hidden" id="results-data" name="results" value='<%= JSON.stringify(results) %>'>
+            <button type="submit" id="export-button">Exporter en Excel</button>
+        </form>
+    </div>
+</body>
+</html>
