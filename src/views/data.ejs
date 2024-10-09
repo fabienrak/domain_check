@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats WHOIS</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        /* Conteneur pour aligner le titre et le bouton */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Résultats WHOIS</h1>
+        <form action="/export" method="POST">
+            <input type="hidden" name="results" value='<%= JSON.stringify(results) %>'>
+            <button type="submit">Exporter en Excel</button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Domaine</th>
+                <th>Emails</th>
+                <th>Téléphones</th>
+                <th>Noms</th>
+                <th>Pays</th>
+                <th>Erreur</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% results.forEach(result => { %>
+                <tr>
+                    <td><%= result.domaine %></td>
+                    <td><%= result.emails || 'N/A' %></td>
+                    <td><%= result.phones || 'N/A' %></td>
+                    <td><%= result.names || 'N/A' %></td>
+                    <td><%= result.countries || 'N/A' %></td>
+                    <td><%= result.error || 'Aucune' %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

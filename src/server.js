@@ -77,7 +77,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
                 }
 
                 if (results.length === domaines.length) {
-                    res.render('resultat', { results });
+                    res.render('data', { results });
                 }
             });
         };
