@@ -7,7 +7,7 @@ const XLSX = require('xlsx');
 const ejs = require('ejs');
 
 const app = express();
-const upload = multer({ dest: 'src/uploads/' });
+const upload = multer({ dest: 'uploads/' });
 
 // app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
@@ -16,11 +16,11 @@ app.use(express.json({limit: '150mb'}));
 app.use(express.urlencoded({limit: '150mb'}));
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'src/views'));
+app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', (req, res) => {
     // res.sendFile(path.join(__dirname, 'public', 'index.html'));
-    res.sendFile(path.join(__dirname, 'src', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.post('/upload', upload.single('file'), (req, res) => {
