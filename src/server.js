@@ -24,6 +24,10 @@ app.get('/', (req, res) => {
 });
 
 app.post('/upload', upload.single('file'), (req, res) => {
+
+    console.log('ENTRY POINT UPLOAD ================================== ')
+
+    
     const filePath = req.file.path;
 
     fs.readFile(filePath, 'utf8', (err, data) => {
@@ -77,6 +81,8 @@ app.post('/upload', upload.single('file'), (req, res) => {
                         countries: countries.join(', ')
                     });
                 }
+
+                console.log('======= RESULT ======== ', results)
 
                 if (results.length === domaines.length) {
                     res.render('resultat', { results });
