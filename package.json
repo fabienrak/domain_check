@@ -1,0 +1,21 @@
+{
+  "name": "check_domain",
+  "version": "1.0.0",
+  "description": "check domain",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "domain",
+    "whois",
+    "dns"
+  ],
+  "author": "Isha",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0",
+    "multer": "^1.4.5-lts.1",
+    "whois": "^2.14.2"
+  }
+}
