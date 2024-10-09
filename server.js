@@ -11,6 +11,7 @@ const upload = multer({ dest: 'uploads/' });
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
+    // res.sendFile(path.join(__dirname, 'public', 'index.html'));
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
@@ -60,19 +61,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
                         countries.push(match[1]);
                     }
 
-                    results.push(`
-                        ========================================================
-                        [+] RESPONSE : \n
-                        
-                        = Domaine : ${domaine}\n 
-                        = Email: ${emails.join(', ')}\n 
-                        = Telephone: ${phones.join(', ')}\n
-                        = Nom : ${names.join(', ')}\n 
-                        = Country : ${countries.join(', ')}
-                        
-                        ========================================================
-                        `
-                    );
+                    results.push(`[+] RESPONSE : ${domaine}\n Email : ${emails.join(', ')}\n Telephone : ${phones.join(', ')}\n Nom : ${names.join(', ')}\n Country : ${countries.join(', ')}`);
                 }
 
                 if (results.length === domaines.length) {
@@ -87,6 +76,5 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log('##########################################')
-    console.log(`[+] SERVERE RUNNING ON : ${PORT}`);
+    console.log(`[+] SERVERR RUNNING ON L : ${PORT}`);
 });
