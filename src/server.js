@@ -5,29 +5,23 @@ const whois = require('whois');
 const path = require('path');
 const XLSX = require('xlsx');
 const ejs = require('ejs');
+const bodyParser = require('body-parser');
 
 const app = express();
 const upload = multer({ dest: 'uploads/' });
 
 // app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }));
-
-app.use(express.json({limit: '150mb'}));
-app.use(express.urlencoded({limit: '150mb'}));
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
+app.use(bodyParser.json({ limit: '50mb' }));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', (req, res) => {
-    // res.sendFile(path.join(__dirname, 'public', 'index.html'));
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.post('/upload', upload.single('file'), (req, res) => {
-
-    console.log('ENTRY POINT UPLOAD ================================== ')
-
-    
     const filePath = req.file.path;
 
     fs.readFile(filePath, 'utf8', (err, data) => {
@@ -82,8 +76,6 @@ app.post('/upload', upload.single('file'), (req, res) => {
                     });
                 }
 
-                console.log('======= RESULT ======== ', results)
-
                 if (results.length === domaines.length) {
                     res.render('resultat', { results });
                 }
@@ -96,22 +88,19 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
 app.post('/export', (req, res) => {
     const results = JSON.parse(req.body.results);
-
     const wb = XLSX.utils.book_new();
     const ws = XLSX.utils.json_to_sheet(results);
 
-    XLSX.utils.book_append_sheet(wb, ws, 'Results-check');
+    XLSX.utils.book_append_sheet(wb, ws, 'Results');
 
     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'buffer' });
 
     res.setHeader('Content-Disposition', 'attachment; filename=results.xlsx');
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-
-    console.log('excelBuffer : +++++++ ', excelBuffer)
     res.send(excelBuffer);
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`[+] SEREVER RUNNING ON : ${PORT}`);
+    console.log(`Serveur running on : ${PORT}`);
 });
